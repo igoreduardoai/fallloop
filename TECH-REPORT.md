@@ -87,7 +87,7 @@ Pinned dependencies (`requirements.txt`, `aws/requirements-lambda.txt`), determi
 commands in `README.md`; evaluation: `python evaluate.py --run --bench --report && python tools/eval_to_md.py`.
 
 ## 9. Team
-Igor Eduardo - engineering; Founder in Residence, Antler; Cortexa Social Inc.
+Igor Eduardo - engineering; Antler Founder Residency (F26, Austin); Cortexa Social Inc.
 
 ## Credits
 OpenCV 5 (Apache-2.0); YOLO26n-pose by Ultralytics (AGPL-3.0 / Enterprise licence; weights not redistributed); GMDCSA-24 dataset (CC BY 4.0).

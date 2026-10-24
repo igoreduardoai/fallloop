@@ -54,4 +54,4 @@ LOCAL_TEST=1 .venv/bin/python aws/handler.py samples/smoke.mp4
 - OpenCV 5.0.0 (Apache-2.0) via `opencv-python-headless==5.0.0.93`.
 
 ## Author
-Igor Eduardo - engineering; Founder in Residence, Antler; Cortexa Social Inc.
+Igor Eduardo - engineering; Antler Founder Residency (F26, Austin); Cortexa Social Inc.
