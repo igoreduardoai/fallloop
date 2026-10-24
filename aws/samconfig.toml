@@ -1,0 +1,11 @@
+version = 0.1
+[default.global.parameters]
+stack_name = "fallloop-demo"
+[default.build.parameters]
+use_container = false
+[default.deploy.parameters]
+capabilities = "CAPABILITY_IAM"
+resolve_s3 = true
+resolve_image_repos = true
+confirm_changeset = true
+region = "us-east-2"

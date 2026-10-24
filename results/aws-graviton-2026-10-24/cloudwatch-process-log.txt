@@ -1,0 +1,7 @@
+INIT_START Runtime Version: python:3.12.mainlinev2.v43	Runtime Version ARN: arn:aws:lambda:us-east-2::runtime:0fec05b8b43b0ecfbabe4fd585b35e423f655861556712f8a10b0e8739c36c07
+	START RequestId: 6d81cfd8-f9d0-4fcd-9b98-d28d3e46d635 Version: $LATEST
+	OpenCV: FFMPEG: tag 0x30385056/'VP80' is not supported with codec id 139 and format 'webm / WebM'
+	{"run_id": "in-20261024084744", "summary": {"frames_processed": 227, "throughput_fps": 2.64, "review_items": 3}}
+	END RequestId: 6d81cfd8-f9d0-4fcd-9b98-d28d3e46d635
+	REPORT RequestId: 6d81cfd8-f9d0-4fcd-9b98-d28d3e46d635	Duration: 114103.65 ms	Billed Duration: 114704 ms	Memory Size: 2048 MB	Max Memory Used: 337 MB	Init Duration: 600.05 ms	
+

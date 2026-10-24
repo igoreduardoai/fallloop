@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FallLoop incident dashboard (research demo)</title>
+<style>
+ body{font-family:system-ui,Segoe UI,Arial,sans-serif;margin:0;background:#0f1419;color:#e6e6e6}
+ header{padding:10px 16px;background:#7a1010;font-weight:600}
+ header small{font-weight:400;opacity:.9}
+ main{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,2fr);gap:12px;padding:12px}
+ .card{background:#1a2129;border-radius:8px;padding:10px}
+ video{width:100%;border-radius:6px;background:#000}
+ h2{font-size:15px;margin:4px 0 8px}
+ #events{max-height:300px;overflow:auto;font-size:12px}
+ .ev{padding:3px 4px;border-bottom:1px solid #2a333d;cursor:pointer}
+ .ev:hover{background:#24303b}
+ .act-escalate_to_human{color:#ff6b6b;font-weight:600}.act-roi_redetect{color:#ffd166}.act-set_conf{color:#4cc9f0}
+ .act-observe_more{color:#adb5bd}.act-request_new_view{color:#f4a261}.act-annotate_review_item{color:#90be6d}
+ .item{display:flex;gap:8px;border:1px solid #33404c;border-radius:6px;padding:6px;margin-bottom:8px}
+ .item img{width:96px;height:96px;object-fit:cover;border-radius:4px;background:#000}
+ .pending{border-color:#ff6b6b}.reviewed{border-color:#52b788;opacity:.85}
+ button{margin:2px;padding:4px 8px;border:0;border-radius:4px;cursor:pointer}
+ .b1{background:#c1121f;color:#fff}.b2{background:#e9c46a}.b3{background:#6c757d;color:#fff}
+ .kv{font-size:12px;color:#adb5bd}
+ footer{padding:8px 16px;font-size:11px;color:#8a949e}
+</style></head><body>
+<header>FallLoop incident dashboard <small>&mdash; RESEARCH DEMONSTRATION, NOT A MEDICAL DEVICE. The system only suggests; a human reviewer decides every label. No face recognition (faces blurred).</small></header>
+<main>
+ <section>
+  <div class="card"><video id="vid" controls muted playsinline></video><div class="kv" id="summary"></div></div>
+  <div class="card" style="margin-top:12px"><h2>Agent incident timeline (vision output &rarr; next action)</h2><div id="events"></div></div>
+ </section>
+ <section class="card"><h2>Human review queue <span class="kv" id="qcount"></span></h2><div id="queue"></div></section>
+</main>
+<footer id="foot"></footer>
+<script>
+let API = true, INC = null;
+const $ = id => document.getElementById(id);
+const media = f => API ? `/media/${f}${location.search}` : f;
+async function load(){
+  let r = await fetch('/incident.json'+location.search).catch(()=>null);
+  if(!r || !r.ok){ API=false; r = await fetch('incident.json'); }
+  INC = await r.json();
+  if(!API){ const ls = JSON.parse(localStorage.getItem('fallloop_reviews')||'{}'); INC.review_queue.forEach(it=>{ if(ls[it.id]) Object.assign(it, ls[it.id]); }); }
+  render();
+}
+function render(){
+  const v=$('vid'); if(!v.src){ if(INC.poster) v.poster = media(INC.poster); v.src = media(INC.video); }
+  const s=INC.summary; const st=s.agent_stats;
+  $('summary').textContent = `source ${INC.source} | OpenCV ${s.opencv} | ${s.frames_processed} frames @ ${s.throughput_fps} fps on CPU | agent actions: ROI re-detect ${st.roi_requests} (${st.roi_improved} improved), threshold changes ${st.conf_changes}, observe-more ${st.observe_more}, new-view requests ${st.new_view_requests}, escalations ${st.escalations}`;
+  $('events').innerHTML = INC.timeline.filter(e=>e.act!=='observe_more' || e.have_s===0.1 || e.have_s>=0.4).map(e=>
+    `<div class="ev act-${e.act}" data-t="${e.t_s}">t=${e.t_s.toFixed(1)}s &middot; <b>${e.act}</b>${e.track?' #'+e.track:''}${e.to!==undefined?' &rarr; '+e.to:''} &middot; ${e.why||''}</div>`).join('') || '<i>no agent actions</i>';
+  document.querySelectorAll('.ev').forEach(d=>d.onclick=()=>{ $('vid').currentTime=parseFloat(d.dataset.t); });
+  const q=INC.review_queue; $('qcount').textContent = `(${q.filter(i=>i.status==='pending_human').length} pending / ${q.length})`;
+  $('queue').innerHTML = q.map(it=>`<div class="item ${it.status==='pending_human'?'pending':'reviewed'}">
+    ${it.snapshot?`<img src="${media('snapshots/'+it.snapshot)}" alt="blurred crop">`:''}
+    <div><b>${it.id}</b> &middot; t=${it.t_s}s &middot; track #${it.track}<br>
+    <span class="kv">${it.suggestion} &middot; posture ${it.posture}, motion ${it.motion_bh_per_s} body-h/s, keypoints ${it.kpt_visibility}, evidence ${it.evidence}</span><br>
+    ${it.note?`<span class="kv">note: ${it.note}</span><br>`:''}
+    ${it.status==='pending_human' ? `<button class="b1" onclick="decide('${it.id}','confirm_now')">Confirm: needs help now</button><button class="b2" onclick="decide('${it.id}','downgrade_later')">Downgrade: check later</button><button class="b3" onclick="decide('${it.id}','dismiss')">Dismiss: false alert</button><button class="b3" onclick="$('vid').currentTime=${it.t_s}">Jump</button>`
+      : `<b style="color:#52b788">${it.final_label}</b> <span class="kv">(${it.reviewer}, ${it.reviewed_at})</span>`}
+    </div></div>`).join('') || '<i>queue empty</i>';
+  $('foot').textContent = (INC.attribution? 'Video: '+INC.attribution+' | ':'') + INC.disclaimer;
+}
+async function decide(id, decision){
+  const labels={confirm_now:'Confirmed by human reviewer: needs help now',downgrade_later:'Downgraded by human reviewer: check later',dismiss:'Dismissed by human reviewer (false alert)'};
+  let rec;
+  if(API){ rec = await (await fetch('/api/review'+location.search,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,decision})})).json(); }
+  else { rec={status:'reviewed',decision,final_label:labels[decision],reviewer:'browser (local)',reviewed_at:new Date().toISOString()};
+         const ls=JSON.parse(localStorage.getItem('fallloop_reviews')||'{}'); ls[id]=rec; localStorage.setItem('fallloop_reviews',JSON.stringify(ls)); }
+  Object.assign(INC.review_queue.find(i=>i.id===id), rec); render();
+}
+load();
+</script></body></html>

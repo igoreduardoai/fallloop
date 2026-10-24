@@ -1,0 +1,5 @@
+models/*.onnx
+.aws-build/
+.venv*/
+__pycache__/
+data/gmdcsa24/Subject*/

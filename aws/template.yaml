@@ -1,0 +1,109 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  FallLoop research demo (OpenCV 5 cv2.dnn pose + agent) on AWS Lambda arm64 (Graviton) with private S3 in/out
+  buckets, a dashboard behind a Lambda Function URL and a USD 1 monthly cost budget alert. Research demonstration,
+  not a medical device. Sized for the AWS Free Tier; delete the stack after judging (aws/teardown.sh).
+
+Parameters:
+  BudgetEmail:
+    Type: String
+    Description: Email that receives the cost budget alerts
+  BudgetLimitUSD:
+    Type: Number
+    Default: 1
+  RetentionDays:
+    Type: Number
+    Default: 7
+    Description: Days before uploaded videos and results are deleted automatically
+
+Globals:
+  Function:
+    Architectures: [arm64]
+    Tags: {project: fallloop, purpose: opencv-ai-competition-2026-demo}
+
+Resources:
+  InBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "fallloop-in-${AWS::AccountId}-${AWS::Region}"
+      PublicAccessBlockConfiguration: {BlockPublicAcls: true, BlockPublicPolicy: true, IgnorePublicAcls: true, RestrictPublicBuckets: true}
+      BucketEncryption: {ServerSideEncryptionConfiguration: [{ServerSideEncryptionByDefault: {SSEAlgorithm: AES256}}]}
+      LifecycleConfiguration: {Rules: [{Id: expire, Status: Enabled, ExpirationInDays: !Ref RetentionDays}]}
+
+  OutBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration: {BlockPublicAcls: true, BlockPublicPolicy: true, IgnorePublicAcls: true, RestrictPublicBuckets: true}
+      BucketEncryption: {ServerSideEncryptionConfiguration: [{ServerSideEncryptionByDefault: {SSEAlgorithm: AES256}}]}
+      LifecycleConfiguration: {Rules: [{Id: expire, Status: Enabled, ExpirationInDays: !Ref RetentionDays}]}
+
+  ProcessFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: OpenCV 5 pipeline + agent on Graviton (arm64 zip package)
+      Runtime: python3.12
+      Handler: handler.lambda_handler
+      CodeUri: ../.aws-build/process/
+      MemorySize: 2048
+      Timeout: 300
+      EphemeralStorage: {Size: 1024}
+      Environment:
+        Variables:
+          OUT_BUCKET: !Ref OutBucket
+          CV_THREADS: "2"
+          PROC_FPS: "10"
+          ATTRIBUTION: "GMDCSA-24 (Alam et al., 2024), CC BY 4.0, doi:10.5281/zenodo.13354453"
+      Policies:
+        - S3ReadPolicy: {BucketName: !Sub "fallloop-in-${AWS::AccountId}-${AWS::Region}"}  # name, not !Ref: avoids the S3-event circular dependency
+        - S3CrudPolicy: {BucketName: !Ref OutBucket}
+      Events:
+        VideoUploaded:
+          Type: S3
+          Properties:
+            Bucket: !Ref InBucket
+            Events: s3:ObjectCreated:*
+            Filter: {S3Key: {Rules: [{Name: suffix, Value: .mp4}]}}
+
+  DashboardFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: Incident dashboard + human review queue (Function URL)
+      Runtime: python3.12
+      Handler: app.handler
+      CodeUri: dashboard/
+      MemorySize: 256
+      Timeout: 10
+      Environment: {Variables: {OUT_BUCKET: !Ref OutBucket}}
+      Policies:
+        - S3CrudPolicy: {BucketName: !Ref OutBucket}
+      FunctionUrlConfig:
+        AuthType: NONE
+
+  # Log groups are created automatically by Lambda on first run (the deploy user has no logs:CreateLogGroup).
+  # Retention is set after deploy with: aws logs put-retention-policy (see DEPLOY.md), if permitted.
+
+  CostBudget:
+    Type: AWS::Budgets::Budget
+    Properties:
+      Budget:
+        BudgetName: !Sub "${AWS::StackName}-usd-budget"
+        BudgetType: COST
+        TimeUnit: MONTHLY
+        BudgetLimit: {Amount: !Ref BudgetLimitUSD, Unit: USD}
+      NotificationsWithSubscribers:
+        - Notification: {NotificationType: ACTUAL, ComparisonOperator: GREATER_THAN, Threshold: 1, ThresholdType: PERCENTAGE}
+          Subscribers: [{SubscriptionType: EMAIL, Address: !Ref BudgetEmail}]
+        - Notification: {NotificationType: ACTUAL, ComparisonOperator: GREATER_THAN, Threshold: 100, ThresholdType: PERCENTAGE}
+          Subscribers: [{SubscriptionType: EMAIL, Address: !Ref BudgetEmail}]
+        - Notification: {NotificationType: FORECASTED, ComparisonOperator: GREATER_THAN, Threshold: 100, ThresholdType: PERCENTAGE}
+          Subscribers: [{SubscriptionType: EMAIL, Address: !Ref BudgetEmail}]
+
+Outputs:
+  DashboardUrl:
+    Description: Public dashboard endpoint for judges (serves demo results only; buckets stay private)
+    Value: !GetAtt DashboardFunctionUrl.FunctionUrl
+  InBucketName:
+    Value: !Ref InBucket
+  OutBucketName:
+    Value: !Ref OutBucket

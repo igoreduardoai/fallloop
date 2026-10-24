@@ -1,0 +1,1474 @@
+{
+ "reissued": "2026-10-24 under the FallLoop name; identical numbers to results/EVAL-2026-10-19.json (same run, not re-tuned)",
+ "dataset": {
+  "name": "GMDCSA-24",
+  "license": "CC BY 4.0",
+  "doi": "10.5281/zenodo.13354453",
+  "citation": "Alam E, Sufian A, Dutta P, Leo M, Hameed IA. GMDCSA-24: A dataset for human fall detection in videos. Data in Brief 57 (2024) 110892.",
+  "subset_rule": "every 3rd clip (01,04,07,...) per subject and class",
+  "clips": 57,
+  "fall_clips": 28,
+  "adl_clips": 29,
+  "adl_sleeping_clips": 5
+ },
+ "protocol": {
+  "dev_subjects": [
+   1,
+   2
+  ],
+  "test_subjects": [
+   3,
+   4
+  ],
+  "processing_fps": 10.0,
+  "default_agent": {
+   "base_conf": 0.35,
+   "conf_floor": 0.2,
+   "min_vis": 0.5,
+   "still_thr": 0.05,
+   "persist_s": 0.5
+  },
+  "still_thr_selected_on_dev": 0.15,
+  "persist_s": 0.5,
+  "notes": "Detector, posture rules and persistence were fixed before evaluation; only still_thr was selected, on DEV subjects."
+ },
+ "threshold_sweep": [
+  {
+   "still_thr": 0.02,
+   "dev_LS": {
+    "tp": 14,
+    "fp": 0,
+    "fn": 4,
+    "precision": 1.0,
+    "recall": 0.778,
+    "f1": 0.875,
+    "tn": 11,
+    "n": 29
+   },
+   "test_LS_posthoc": {
+    "tp": 11,
+    "fp": 1,
+    "fn": 4,
+    "precision": 0.917,
+    "recall": 0.733,
+    "f1": 0.815,
+    "tn": 12,
+    "n": 28
+   }
+  },
+  {
+   "still_thr": 0.03,
+   "dev_LS": {
+    "tp": 15,
+    "fp": 1,
+    "fn": 3,
+    "precision": 0.938,
+    "recall": 0.833,
+    "f1": 0.882,
+    "tn": 10,
+    "n": 29
+   },
+   "test_LS_posthoc": {
+    "tp": 11,
+    "fp": 1,
+    "fn": 4,
+    "precision": 0.917,
+    "recall": 0.733,
+    "f1": 0.815,
+    "tn": 12,
+    "n": 28
+   }
+  },
+  {
+   "still_thr": 0.05,
+   "dev_LS": {
+    "tp": 15,
+    "fp": 2,
+    "fn": 3,
+    "precision": 0.882,
+    "recall": 0.833,
+    "f1": 0.857,
+    "tn": 9,
+    "n": 29
+   },
+   "test_LS_posthoc": {
+    "tp": 11,
+    "fp": 1,
+    "fn": 4,
+    "precision": 0.917,
+    "recall": 0.733,
+    "f1": 0.815,
+    "tn": 12,
+    "n": 28
+   }
+  },
+  {
+   "still_thr": 0.075,
+   "dev_LS": {
+    "tp": 16,
+    "fp": 2,
+    "fn": 2,
+    "precision": 0.889,
+    "recall": 0.889,
+    "f1": 0.889,
+    "tn": 9,
+    "n": 29
+   },
+   "test_LS_posthoc": {
+    "tp": 11,
+    "fp": 2,
+    "fn": 4,
+    "precision": 0.846,
+    "recall": 0.733,
+    "f1": 0.786,
+    "tn": 11,
+    "n": 28
+   }
+  },
+  {
+   "still_thr": 0.1,
+   "dev_LS": {
+    "tp": 16,
+    "fp": 2,
+    "fn": 2,
+    "precision": 0.889,
+    "recall": 0.889,
+    "f1": 0.889,
+    "tn": 9,
+    "n": 29
+   },
+   "test_LS_posthoc": {
+    "tp": 11,
+    "fp": 2,
+    "fn": 4,
+    "precision": 0.846,
+    "recall": 0.733,
+    "f1": 0.786,
+    "tn": 11,
+    "n": 28
+   }
+  },
+  {
+   "still_thr": 0.15,
+   "dev_LS": {
+    "tp": 17,
+    "fp": 2,
+    "fn": 1,
+    "precision": 0.895,
+    "recall": 0.944,
+    "f1": 0.919,
+    "tn": 9,
+    "n": 29
+   },
+   "test_LS_posthoc": {
+    "tp": 11,
+    "fp": 3,
+    "fn": 4,
+    "precision": 0.786,
+    "recall": 0.733,
+    "f1": 0.759,
+    "tn": 10,
+    "n": 28
+   }
+  },
+  {
+   "still_thr": 0.2,
+   "dev_LS": {
+    "tp": 17,
+    "fp": 3,
+    "fn": 1,
+    "precision": 0.85,
+    "recall": 0.944,
+    "f1": 0.895,
+    "tn": 8,
+    "n": 29
+   },
+   "test_LS_posthoc": {
+    "tp": 12,
+    "fp": 3,
+    "fn": 3,
+    "precision": 0.8,
+    "recall": 0.8,
+    "f1": 0.8,
+    "tn": 10,
+    "n": 28
+   }
+  }
+ ],
+ "clip_DEV": {
+  "LS": {
+   "tp": 17,
+   "fp": 2,
+   "fn": 1,
+   "precision": 0.895,
+   "recall": 0.944,
+   "f1": 0.919,
+   "tn": 9,
+   "n": 29
+  },
+  "FALL": {
+   "tp": 14,
+   "fp": 5,
+   "fn": 1,
+   "precision": 0.737,
+   "recall": 0.933,
+   "f1": 0.824,
+   "tn": 9,
+   "n": 29
+  }
+ },
+ "clip_TEST": {
+  "LS": {
+   "tp": 11,
+   "fp": 3,
+   "fn": 4,
+   "precision": 0.786,
+   "recall": 0.733,
+   "f1": 0.759,
+   "tn": 10,
+   "n": 28
+  },
+  "FALL": {
+   "tp": 9,
+   "fp": 5,
+   "fn": 4,
+   "precision": 0.643,
+   "recall": 0.692,
+   "f1": 0.667,
+   "tn": 10,
+   "n": 28
+  }
+ },
+ "clip_ALL": {
+  "LS": {
+   "tp": 28,
+   "fp": 5,
+   "fn": 5,
+   "precision": 0.848,
+   "recall": 0.848,
+   "f1": 0.848,
+   "tn": 19,
+   "n": 57
+  },
+  "FALL": {
+   "tp": 23,
+   "fp": 10,
+   "fn": 5,
+   "precision": 0.697,
+   "recall": 0.821,
+   "f1": 0.754,
+   "tn": 19,
+   "n": 57
+  }
+ },
+ "subgroups_LS_recall_all_subjects": {
+  "normal_light": {
+   "positives": 25,
+   "alerted": 21,
+   "recall": 0.84
+  },
+  "low_light(night/lights off)": {
+   "positives": 8,
+   "alerted": 7,
+   "recall": 0.875
+  },
+  "occlusion_noted_in_csv": {
+   "positives": 3,
+   "alerted": 2,
+   "recall": 0.667
+  },
+  "no_occlusion_note": {
+   "positives": 30,
+   "alerted": 26,
+   "recall": 0.867
+  }
+ },
+ "fall_alert_delay_s": {
+  "n": 23,
+  "median": 1.61,
+  "min": -0.02,
+  "max": 2.98,
+  "note": "time from labelled fall START to first human-review escalation (includes the fall motion itself and 0.5-1.0 s persistence)"
+ },
+ "frame_level": {
+  "DEV": {
+   "lying": {
+    "tp": 158,
+    "fp": 116,
+    "fn": 23,
+    "precision": 0.577,
+    "recall": 0.873,
+    "f1": 0.695
+   },
+   "lying_and_still": {
+    "tp": 98,
+    "fp": 99,
+    "fn": 7,
+    "precision": 0.497,
+    "recall": 0.933,
+    "f1": 0.649
+   }
+  },
+  "TEST": {
+   "lying": {
+    "tp": 141,
+    "fp": 9,
+    "fn": 26,
+    "precision": 0.94,
+    "recall": 0.844,
+    "f1": 0.89
+   },
+   "lying_and_still": {
+    "tp": 92,
+    "fp": 5,
+    "fn": 25,
+    "precision": 0.948,
+    "recall": 0.786,
+    "f1": 0.86
+   }
+  }
+ },
+ "latency_ms_per_processed_frame": {
+  "decode_ms": {
+   "mean": 5.63,
+   "p50": 2.36,
+   "p95": 15.35
+  },
+  "flow_ms": {
+   "mean": 131.6,
+   "p50": 43.43,
+   "p95": 92.53
+  },
+  "preprocess_ms": {
+   "mean": 6.62,
+   "p50": 3.31,
+   "p95": 13.92
+  },
+  "dnn_forward_ms": {
+   "mean": 158.89,
+   "p50": 51.87,
+   "p95": 177.09
+  },
+  "postprocess_ms": {
+   "mean": 8.1,
+   "p50": 0.21,
+   "p95": 0.29
+  },
+  "roi_redetect_ms": {
+   "mean": 1.31,
+   "p50": 0.0,
+   "p95": 0.0
+  },
+  "features_track_ms": {
+   "mean": 3.8,
+   "p50": 0.56,
+   "p95": 1.19
+  },
+  "agent_ms": {
+   "mean": 0.02,
+   "p50": 0.01,
+   "p95": 0.03
+  },
+  "render_ms": {
+   "mean": 0.0,
+   "p50": 0.0,
+   "p95": 0.0
+  },
+  "total": {
+   "mean": 316.0,
+   "p50": 102.2,
+   "p95": 297.7
+  }
+ },
+ "throughput": {
+  "frames_processed": 4301,
+  "fps_from_mean_total": 3.16,
+  "hardware": "shared Linux box, x86_64 CPU (8 vCPU, other jobs running), cv2 4 threads",
+  "opencv": "5.0.0",
+  "cv2_threads": 4,
+  "input": "1280x720 webcam clips, every 3rd frame (~10 fps)"
+ },
+ "latency_benchmark": {
+  "clips": [
+   "S1-ADL-07",
+   "S2-Fall-13",
+   "S3-Fall-07",
+   "S3-ADL-10",
+   "S4-ADL-04",
+   "S4-Fall-13"
+  ],
+  "runs": [
+   {
+    "cv2_threads": 4,
+    "frames": 597,
+    "wall_s": 52.9,
+    "throughput_fps": 11.28,
+    "loadavg_before": [
+     "9.16",
+     "83.75",
+     "106.25"
+    ],
+    "loadavg_after": [
+     "9.35",
+     "71.28",
+     "100.69"
+    ],
+    "stages_ms": {
+     "decode_ms": {
+      "mean": 2.77,
+      "p50": 1.68,
+      "p95": 7.93
+     },
+     "flow_ms": {
+      "mean": 35.74,
+      "p50": 40.59,
+      "p95": 47.52
+     },
+     "preprocess_ms": {
+      "mean": 3.2,
+      "p50": 2.94,
+      "p95": 4.9
+     },
+     "dnn_forward_ms": {
+      "mean": 44.51,
+      "p50": 41.7,
+      "p95": 56.03
+     },
+     "postprocess_ms": {
+      "mean": 0.16,
+      "p50": 0.16,
+      "p95": 0.22
+     },
+     "roi_redetect_ms": {
+      "mean": 1.02,
+      "p50": 0.0,
+      "p95": 0.0
+     },
+     "features_track_ms": {
+      "mean": 0.46,
+      "p50": 0.46,
+      "p95": 0.92
+     },
+     "agent_ms": {
+      "mean": 0.02,
+      "p50": 0.01,
+      "p95": 0.02
+     },
+     "render_ms": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+     }
+    },
+    "total_ms": {
+     "mean": 87.9,
+     "p50": 87.5,
+     "p95": 109.8
+    }
+   },
+   {
+    "cv2_threads": 2,
+    "frames": 597,
+    "wall_s": 62.3,
+    "throughput_fps": 9.58,
+    "loadavg_before": [
+     "9.35",
+     "71.28",
+     "100.69"
+    ],
+    "loadavg_after": [
+     "8.68",
+     "59.81",
+     "94.91"
+    ],
+    "stages_ms": {
+     "decode_ms": {
+      "mean": 2.19,
+      "p50": 1.14,
+      "p95": 6.58
+     },
+     "flow_ms": {
+      "mean": 31.58,
+      "p50": 35.76,
+      "p95": 41.49
+     },
+     "preprocess_ms": {
+      "mean": 1.38,
+      "p50": 1.33,
+      "p95": 1.66
+     },
+     "dnn_forward_ms": {
+      "mean": 66.64,
+      "p50": 65.02,
+      "p95": 78.22
+     },
+     "postprocess_ms": {
+      "mean": 0.17,
+      "p50": 0.17,
+      "p95": 0.23
+     },
+     "roi_redetect_ms": {
+      "mean": 1.47,
+      "p50": 0.0,
+      "p95": 0.0
+     },
+     "features_track_ms": {
+      "mean": 0.47,
+      "p50": 0.48,
+      "p95": 0.93
+     },
+     "agent_ms": {
+      "mean": 0.01,
+      "p50": 0.01,
+      "p95": 0.02
+     },
+     "render_ms": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+     }
+    },
+    "total_ms": {
+     "mean": 103.9,
+     "p50": 104.1,
+     "p95": 126.6
+    }
+   },
+   {
+    "cv2_threads": 1,
+    "frames": 597,
+    "wall_s": 91.3,
+    "throughput_fps": 6.54,
+    "loadavg_before": [
+     "8.68",
+     "59.81",
+     "94.91"
+    ],
+    "loadavg_after": [
+     "7.90",
+     "45.52",
+     "86.39"
+    ],
+    "stages_ms": {
+     "decode_ms": {
+      "mean": 2.13,
+      "p50": 1.11,
+      "p95": 5.81
+     },
+     "flow_ms": {
+      "mean": 31.29,
+      "p50": 35.83,
+      "p95": 40.86
+     },
+     "preprocess_ms": {
+      "mean": 1.44,
+      "p50": 1.4,
+      "p95": 1.68
+     },
+     "dnn_forward_ms": {
+      "mean": 114.35,
+      "p50": 112.59,
+      "p95": 125.35
+     },
+     "postprocess_ms": {
+      "mean": 0.19,
+      "p50": 0.2,
+      "p95": 0.25
+     },
+     "roi_redetect_ms": {
+      "mean": 2.5,
+      "p50": 0.0,
+      "p95": 0.0
+     },
+     "features_track_ms": {
+      "mean": 0.49,
+      "p50": 0.5,
+      "p95": 0.94
+     },
+     "agent_ms": {
+      "mean": 0.02,
+      "p50": 0.01,
+      "p95": 0.02
+     },
+     "render_ms": {
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+     }
+    },
+    "total_ms": {
+     "mean": 152.4,
+     "p50": 152.3,
+     "p95": 171.1
+    }
+   }
+  ]
+ },
+ "latency_note": "latency_ms_per_processed_frame comes from the full 57-clip run while the shared box was heavily loaded by other jobs (load average up to ~390 on 8 vCPU); latency_benchmark is a separate run on 6 fixed clips at lower load. Neither is AWS Graviton.",
+ "agent": {
+  "frames": 4301,
+  "frames_with_action": 680,
+  "escalations": 29,
+  "roi_requests": 81,
+  "roi_improved": 39,
+  "roi_failed": 42,
+  "conf_changes": 435,
+  "new_view_requests": 22,
+  "observe_more": 197,
+  "escalation_rate_per_clip": 0.579,
+  "frames_with_any_agent_action_pct": 15.8,
+  "roi_redetect_success_pct": 48.1,
+  "note": "agent counters from the live run at default still_thr=0.05; escalation_rate_per_clip uses the DEV-selected threshold"
+ },
+ "failure_cases": [
+  {
+   "clip": "S1-Fall-01",
+   "type": "FN",
+   "cls": "Fall",
+   "lighting": "Day (Light On)",
+   "desc": "Falling from sitting on the chair to the ground. Left side Fall. Full body not visible",
+   "occlusion_note": true,
+   "mean_kpt_visibility": 0.91,
+   "frames_without_person": "23/67"
+  },
+  {
+   "clip": "S2-ADL-04",
+   "type": "FP",
+   "cls": "ADL",
+   "lighting": "Day",
+   "desc": "Yoga: Standing forward bend (Uttanasana)",
+   "occlusion_note": false,
+   "mean_kpt_visibility": 0.91,
+   "frames_without_person": "0/78"
+  },
+  {
+   "clip": "S2-ADL-22",
+   "type": "FP",
+   "cls": "ADL",
+   "lighting": "Night",
+   "desc": "Exercising (Push-up) and sitting",
+   "occlusion_note": false,
+   "mean_kpt_visibility": 0.75,
+   "frames_without_person": "27/91"
+  },
+  {
+   "clip": "S3-ADL-04",
+   "type": "FP",
+   "cls": "ADL",
+   "lighting": "Day",
+   "desc": "Picking a book from the floor and putting it on the bed; sitting on the bed",
+   "occlusion_note": false,
+   "mean_kpt_visibility": 0.79,
+   "frames_without_person": "0/100"
+  },
+  {
+   "clip": "S3-Fall-04",
+   "type": "FN",
+   "cls": "Fall",
+   "lighting": "Day",
+   "desc": "Walking and then falling backward on the floor",
+   "occlusion_note": false,
+   "mean_kpt_visibility": 0.71,
+   "frames_without_person": "24/54"
+  },
+  {
+   "clip": "S3-Fall-19",
+   "type": "FN",
+   "cls": "Fall",
+   "lighting": "Night",
+   "desc": "Falling on the floor from the standing position",
+   "occlusion_note": false,
+   "mean_kpt_visibility": 0.65,
+   "frames_without_person": "9/43"
+  },
+  {
+   "clip": "S4-ADL-07",
+   "type": "FP",
+   "cls": "ADL",
+   "lighting": "Day (Lights Off)",
+   "desc": "Doing exercise (push-up); view 3",
+   "occlusion_note": false,
+   "mean_kpt_visibility": 0.86,
+   "frames_without_person": "27/49"
+  },
+  {
+   "clip": "S4-ADL-19",
+   "type": "FP",
+   "cls": "ADL",
+   "lighting": "Day (Lights On)",
+   "desc": "Walking; then picking up the biscuit jar and eating biscuits from it after sitting on the bed",
+   "occlusion_note": false,
+   "mean_kpt_visibility": 0.93,
+   "frames_without_person": "0/98"
+  },
+  {
+   "clip": "S4-Fall-01",
+   "type": "FN",
+   "cls": "Fall",
+   "lighting": "Day (Lights On)",
+   "desc": "Standing on the bed to falling (LS) on the bed",
+   "occlusion_note": false,
+   "mean_kpt_visibility": 0.8,
+   "frames_without_person": "14/46"
+  },
+  {
+   "clip": "S4-Fall-10",
+   "type": "FN",
+   "cls": "Fall",
+   "lighting": "Day (Lights On)",
+   "desc": "Reading a book while sitting on the chair then falling (FW) on the ground",
+   "occlusion_note": false,
+   "mean_kpt_visibility": 0.74,
+   "frames_without_person": "18/50"
+  }
+ ],
+ "per_clip": [
+  {
+   "id": "S1-ADL-01",
+   "cls": "ADL",
+   "has_sleeping": true,
+   "lighting": "Day (Light On)",
+   "alert": true,
+   "first_alert_s": 2.5,
+   "fall_start_s": null,
+   "mean_vis": 0.98,
+   "frames_no_person": 0,
+   "frames": 81,
+   "n_people_max": 2
+  },
+  {
+   "id": "S1-ADL-04",
+   "cls": "ADL",
+   "has_sleeping": true,
+   "lighting": "Day (Light On)",
+   "alert": true,
+   "first_alert_s": 0.58,
+   "fall_start_s": null,
+   "mean_vis": 0.95,
+   "frames_no_person": 0,
+   "frames": 56,
+   "n_people_max": 1
+  },
+  {
+   "id": "S1-ADL-07",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day (Light On)",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.99,
+   "frames_no_person": 0,
+   "frames": 74,
+   "n_people_max": 2
+  },
+  {
+   "id": "S1-ADL-10",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day (Light On)",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.94,
+   "frames_no_person": 0,
+   "frames": 38,
+   "n_people_max": 1
+  },
+  {
+   "id": "S1-ADL-13",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day (Light On)",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.94,
+   "frames_no_person": 0,
+   "frames": 62,
+   "n_people_max": 1
+  },
+  {
+   "id": "S1-ADL-16",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day (Light On)",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.92,
+   "frames_no_person": 0,
+   "frames": 34,
+   "n_people_max": 1
+  },
+  {
+   "id": "S1-Fall-01",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Light On)",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": 3.4,
+   "mean_vis": 0.91,
+   "frames_no_person": 23,
+   "frames": 67,
+   "n_people_max": 1
+  },
+  {
+   "id": "S1-Fall-04",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Light On)",
+   "alert": true,
+   "first_alert_s": 3.74,
+   "fall_start_s": 2.3,
+   "mean_vis": 0.96,
+   "frames_no_person": 0,
+   "frames": 48,
+   "n_people_max": 1
+  },
+  {
+   "id": "S1-Fall-07",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Light On)",
+   "alert": true,
+   "first_alert_s": 2.9,
+   "fall_start_s": 1.1,
+   "mean_vis": 0.91,
+   "frames_no_person": 0,
+   "frames": 51,
+   "n_people_max": 2
+  },
+  {
+   "id": "S1-Fall-10",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Light On)",
+   "alert": true,
+   "first_alert_s": 2.5,
+   "fall_start_s": 0.7,
+   "mean_vis": 0.89,
+   "frames_no_person": 1,
+   "frames": 44,
+   "n_people_max": 2
+  },
+  {
+   "id": "S1-Fall-13",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Light On)",
+   "alert": true,
+   "first_alert_s": 2.19,
+   "fall_start_s": 0.4,
+   "mean_vis": 0.84,
+   "frames_no_person": 0,
+   "frames": 42,
+   "n_people_max": 1
+  },
+  {
+   "id": "S1-Fall-16",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Light On)",
+   "alert": true,
+   "first_alert_s": 4.41,
+   "fall_start_s": 2.8,
+   "mean_vis": 0.91,
+   "frames_no_person": 0,
+   "frames": 60,
+   "n_people_max": 2
+  },
+  {
+   "id": "S2-ADL-01",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.92,
+   "frames_no_person": 0,
+   "frames": 113,
+   "n_people_max": 2
+  },
+  {
+   "id": "S2-ADL-04",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 1.78,
+   "fall_start_s": null,
+   "mean_vis": 0.91,
+   "frames_no_person": 0,
+   "frames": 78,
+   "n_people_max": 1
+  },
+  {
+   "id": "S2-ADL-07",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.84,
+   "frames_no_person": 0,
+   "frames": 129,
+   "n_people_max": 2
+  },
+  {
+   "id": "S2-ADL-10",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.83,
+   "frames_no_person": 0,
+   "frames": 75,
+   "n_people_max": 3
+  },
+  {
+   "id": "S2-ADL-13",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.92,
+   "frames_no_person": 0,
+   "frames": 48,
+   "n_people_max": 1
+  },
+  {
+   "id": "S2-ADL-16",
+   "cls": "ADL",
+   "has_sleeping": true,
+   "lighting": "Night",
+   "alert": true,
+   "first_alert_s": 0.6,
+   "fall_start_s": null,
+   "mean_vis": 0.93,
+   "frames_no_person": 3,
+   "frames": 173,
+   "n_people_max": 2
+  },
+  {
+   "id": "S2-ADL-19",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Night",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.87,
+   "frames_no_person": 4,
+   "frames": 85,
+   "n_people_max": 2
+  },
+  {
+   "id": "S2-ADL-22",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Night",
+   "alert": true,
+   "first_alert_s": 1.0,
+   "fall_start_s": null,
+   "mean_vis": 0.75,
+   "frames_no_person": 27,
+   "frames": 91,
+   "n_people_max": 2
+  },
+  {
+   "id": "S2-Fall-01",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 4.19,
+   "fall_start_s": 1.4,
+   "mean_vis": 0.75,
+   "frames_no_person": 5,
+   "frames": 63,
+   "n_people_max": 2
+  },
+  {
+   "id": "S2-Fall-04",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 5.59,
+   "fall_start_s": 3.3,
+   "mean_vis": 0.82,
+   "frames_no_person": 44,
+   "frames": 101,
+   "n_people_max": 1
+  },
+  {
+   "id": "S2-Fall-07",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 1.98,
+   "fall_start_s": 2.0,
+   "mean_vis": 0.87,
+   "frames_no_person": 4,
+   "frames": 45,
+   "n_people_max": 1
+  },
+  {
+   "id": "S2-Fall-10",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Night",
+   "alert": true,
+   "first_alert_s": 4.74,
+   "fall_start_s": 2.0,
+   "mean_vis": 0.56,
+   "frames_no_person": 86,
+   "frames": 167,
+   "n_people_max": 2
+  },
+  {
+   "id": "S2-Fall-13",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Night",
+   "alert": true,
+   "first_alert_s": 5.48,
+   "fall_start_s": 2.5,
+   "mean_vis": 0.7,
+   "frames_no_person": 58,
+   "frames": 133,
+   "n_people_max": 2
+  },
+  {
+   "id": "S2-Fall-16",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 2.38,
+   "fall_start_s": 0.8,
+   "mean_vis": 0.77,
+   "frames_no_person": 0,
+   "frames": 40,
+   "n_people_max": 1
+  },
+  {
+   "id": "S2-Fall-19",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 10.02,
+   "fall_start_s": 8.2,
+   "mean_vis": 0.7,
+   "frames_no_person": 0,
+   "frames": 154,
+   "n_people_max": 1
+  },
+  {
+   "id": "S2-Fall-22",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 2.89,
+   "fall_start_s": 1.3,
+   "mean_vis": 0.79,
+   "frames_no_person": 0,
+   "frames": 51,
+   "n_people_max": 2
+  },
+  {
+   "id": "S2-Fall-25",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 4.49,
+   "fall_start_s": 3.0,
+   "mean_vis": 0.89,
+   "frames_no_person": 0,
+   "frames": 72,
+   "n_people_max": 1
+  },
+  {
+   "id": "S3-ADL-01",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.81,
+   "frames_no_person": 0,
+   "frames": 87,
+   "n_people_max": 3
+  },
+  {
+   "id": "S3-ADL-04",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 1.27,
+   "fall_start_s": null,
+   "mean_vis": 0.79,
+   "frames_no_person": 0,
+   "frames": 100,
+   "n_people_max": 3
+  },
+  {
+   "id": "S3-ADL-07",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 1.0,
+   "frames_no_person": 0,
+   "frames": 33,
+   "n_people_max": 1
+  },
+  {
+   "id": "S3-ADL-10",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.82,
+   "frames_no_person": 0,
+   "frames": 123,
+   "n_people_max": 1
+  },
+  {
+   "id": "S3-ADL-13",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Night",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.91,
+   "frames_no_person": 1,
+   "frames": 65,
+   "n_people_max": 1
+  },
+  {
+   "id": "S3-ADL-16",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.94,
+   "frames_no_person": 0,
+   "frames": 102,
+   "n_people_max": 1
+  },
+  {
+   "id": "S3-ADL-19",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Night",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.84,
+   "frames_no_person": 0,
+   "frames": 49,
+   "n_people_max": 1
+  },
+  {
+   "id": "S3-ADL-22",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.86,
+   "frames_no_person": 0,
+   "frames": 94,
+   "n_people_max": 1
+  },
+  {
+   "id": "S3-Fall-01",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 2.07,
+   "fall_start_s": 0.0,
+   "mean_vis": 0.93,
+   "frames_no_person": 7,
+   "frames": 38,
+   "n_people_max": 1
+  },
+  {
+   "id": "S3-Fall-04",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": 1.2,
+   "mean_vis": 0.71,
+   "frames_no_person": 24,
+   "frames": 54,
+   "n_people_max": 2
+  },
+  {
+   "id": "S3-Fall-07",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 2.68,
+   "fall_start_s": 1.0,
+   "mean_vis": 0.78,
+   "frames_no_person": 11,
+   "frames": 89,
+   "n_people_max": 3
+  },
+  {
+   "id": "S3-Fall-10",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 1.77,
+   "fall_start_s": 1.7,
+   "mean_vis": 0.8,
+   "frames_no_person": 8,
+   "frames": 43,
+   "n_people_max": 1
+  },
+  {
+   "id": "S3-Fall-13",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day",
+   "alert": true,
+   "first_alert_s": 2.48,
+   "fall_start_s": 1.4,
+   "mean_vis": 0.94,
+   "frames_no_person": 0,
+   "frames": 40,
+   "n_people_max": 1
+  },
+  {
+   "id": "S3-Fall-16",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Night",
+   "alert": true,
+   "first_alert_s": 4.74,
+   "fall_start_s": 1.8,
+   "mean_vis": 0.54,
+   "frames_no_person": 31,
+   "frames": 91,
+   "n_people_max": 3
+  },
+  {
+   "id": "S3-Fall-19",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Night",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": 2.0,
+   "mean_vis": 0.65,
+   "frames_no_person": 9,
+   "frames": 43,
+   "n_people_max": 2
+  },
+  {
+   "id": "S4-ADL-01",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day (Lights Off)",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.94,
+   "frames_no_person": 0,
+   "frames": 123,
+   "n_people_max": 1
+  },
+  {
+   "id": "S4-ADL-04",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day (Lights Off)",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.92,
+   "frames_no_person": 0,
+   "frames": 129,
+   "n_people_max": 1
+  },
+  {
+   "id": "S4-ADL-07",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day (Lights Off)",
+   "alert": true,
+   "first_alert_s": 2.28,
+   "fall_start_s": null,
+   "mean_vis": 0.86,
+   "frames_no_person": 27,
+   "frames": 49,
+   "n_people_max": 1
+  },
+  {
+   "id": "S4-ADL-10",
+   "cls": "ADL",
+   "has_sleeping": true,
+   "lighting": "Day (Lights Off)",
+   "alert": true,
+   "first_alert_s": 6.1,
+   "fall_start_s": null,
+   "mean_vis": 0.82,
+   "frames_no_person": 13,
+   "frames": 127,
+   "n_people_max": 2
+  },
+  {
+   "id": "S4-ADL-13",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day (Lights On)",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": null,
+   "mean_vis": 0.88,
+   "frames_no_person": 0,
+   "frames": 54,
+   "n_people_max": 1
+  },
+  {
+   "id": "S4-ADL-16",
+   "cls": "ADL",
+   "has_sleeping": true,
+   "lighting": "Day (Lights On)",
+   "alert": true,
+   "first_alert_s": 3.99,
+   "fall_start_s": null,
+   "mean_vis": 0.95,
+   "frames_no_person": 0,
+   "frames": 71,
+   "n_people_max": 1
+  },
+  {
+   "id": "S4-ADL-19",
+   "cls": "ADL",
+   "has_sleeping": false,
+   "lighting": "Day (Lights On)",
+   "alert": true,
+   "first_alert_s": 2.38,
+   "fall_start_s": null,
+   "mean_vis": 0.93,
+   "frames_no_person": 0,
+   "frames": 98,
+   "n_people_max": 1
+  },
+  {
+   "id": "S4-Fall-01",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Lights On)",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": 1.8,
+   "mean_vis": 0.8,
+   "frames_no_person": 14,
+   "frames": 46,
+   "n_people_max": 1
+  },
+  {
+   "id": "S4-Fall-04",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Lights Off)",
+   "alert": true,
+   "first_alert_s": 2.38,
+   "fall_start_s": 1.2,
+   "mean_vis": 0.76,
+   "frames_no_person": 13,
+   "frames": 47,
+   "n_people_max": 1
+  },
+  {
+   "id": "S4-Fall-07",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Lights Off)",
+   "alert": true,
+   "first_alert_s": 3.79,
+   "fall_start_s": 2.4,
+   "mean_vis": 0.8,
+   "frames_no_person": 4,
+   "frames": 62,
+   "n_people_max": 1
+  },
+  {
+   "id": "S4-Fall-10",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Lights On)",
+   "alert": false,
+   "first_alert_s": null,
+   "fall_start_s": 2.2,
+   "mean_vis": 0.74,
+   "frames_no_person": 18,
+   "frames": 50,
+   "n_people_max": 1
+  },
+  {
+   "id": "S4-Fall-13",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Lights On)",
+   "alert": true,
+   "first_alert_s": 1.78,
+   "fall_start_s": 0.3,
+   "mean_vis": 0.94,
+   "frames_no_person": 0,
+   "frames": 49,
+   "n_people_max": 1
+  },
+  {
+   "id": "S4-Fall-16",
+   "cls": "Fall",
+   "has_sleeping": false,
+   "lighting": "Day (Lights On)",
+   "alert": true,
+   "first_alert_s": 4.59,
+   "fall_start_s": 3.2,
+   "mean_vis": 0.57,
+   "frames_no_person": 7,
+   "frames": 70,
+   "n_people_max": 1
+  }
+ ],
+ "not_covered": [
+  "rooms with several people (GMDCSA-24 has one actor per clip)",
+  "outdoor scenes, smoke, debris",
+  "real incidents or patients (none used)",
+  "AWS Graviton latency (no AWS account yet)"
+ ]
+}
